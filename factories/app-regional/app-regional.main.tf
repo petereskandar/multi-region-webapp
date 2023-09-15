@@ -18,9 +18,8 @@ module "app-vpc" {
   providers = {
     aws.dst = aws.dst
   }
-  scope = var.scope
-  stage = var.stage
-  tags  = var.tags
+  vpc_cidr_block = var.vpc_cidr_block
+  tags           = var.tags
 }
 
 ##############################
@@ -33,9 +32,7 @@ module "app-ecr" {
   providers = {
     aws = aws.dst
   }
-  scope = var.scope
-  stage = var.stage
-  tags  = var.tags
+  tags = var.tags
 }
 
 ##############################################################
@@ -48,8 +45,6 @@ module "app-ecs" {
   providers = {
     aws = aws.dst
   }
-  scope              = var.scope
-  stage              = var.stage
   tags               = var.tags
   domain_name        = var.domain_name                # Public domain name needed for ACM & Public Exposure
   ecr_repository_url = module.app-ecr.repository_url  # ECR repo url to pull the sample webapp Image

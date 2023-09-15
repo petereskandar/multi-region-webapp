@@ -93,7 +93,7 @@ module "alb" {
 
 resource "aws_route53_record" "default" {
   zone_id = data.aws_route53_zone.public-zone.zone_id
-  name    = lower("demoapp.${var.domain_name}")
+  name    = lower("${var.domain_name_prefix}.${var.domain_name}")
   type    = "A"
 
   alias {
