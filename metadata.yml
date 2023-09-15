@@ -1,0 +1,16 @@
+# current stage
+scope: DEMO
+stage: DEV
+env: nonprod
+account_id: ""
+
+# tags
+environment: Development
+category: POC
+project_name: DEMO-APP
+
+# public domain name
+domain_name: petereskandar.eu
+domain_name_suffix: webapp
+vpc_cidr: 10.0.0.0/16
+

@@ -1,0 +1,8 @@
+*.terraform
+.terraform.lock.hcl
+*.hcl
+*.tfstat*
+*.plan
+*.info
+.idea
+provider.tf
