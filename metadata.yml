@@ -6,7 +6,7 @@ project_name: DEMO-APP
 # public domain name
 domain_name: petereskandar.eu
 # domain prefix for public app exposure : webapp.petereskandar.eu
-domain_name_prefix: webapp
+domain_name_prefix: demoapp
 # VPC CIDR needed to create a new VPC in each region
 vpc_cidr: 10.0.0.0/16
 

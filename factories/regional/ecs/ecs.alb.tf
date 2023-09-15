@@ -89,9 +89,23 @@ module "alb" {
 
 ####################################
 ## DNS Record Creation for the ALB
+## Route53 Health Checks
 ####################################
 
-resource "aws_route53_record" "default" {
+// route53 health check
+resource "aws_route53_health_check" "failover_healt_check" {
+  fqdn              = module.alb.lb_dns_name
+  port              = 443
+  type              = "HTTPS"
+  resource_path     = "/"
+  request_interval  = 30
+  failure_threshold = 3
+  tags = merge(var.tags, {
+    Name = "${var.domain_name_prefix}.${data.aws_region.current.name}-health-check"
+  })
+}
+
+resource "aws_route53_record" "dns_record" {
   zone_id = data.aws_route53_zone.public-zone.zone_id
   name    = lower("${var.domain_name_prefix}.${var.domain_name}")
   type    = "A"
@@ -101,4 +115,12 @@ resource "aws_route53_record" "default" {
     zone_id                = module.alb.lb_zone_id
     evaluate_target_health = true
   }
+
+  set_identifier = var.primary_region ? "primary" : "secondary"
+  failover_routing_policy {
+    type = var.primary_region ? "PRIMARY" : "SECONDARY"
+  }
+
+  health_check_id = aws_route53_health_check.failover_healt_check.id
+
 }

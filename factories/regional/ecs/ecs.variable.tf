@@ -38,3 +38,8 @@ variable "ecr_repository_url" {
   type        = string
   description = "The ECR Repository URL needed to Pull the Sample WebAPP Image"
 }
+
+variable "primary_region" {
+  type        = bool
+  description = "Checks Wether the region is the primary or the secondary one"
+}

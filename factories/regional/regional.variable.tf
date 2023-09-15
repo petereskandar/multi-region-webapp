@@ -18,3 +18,8 @@ variable "vpc_cidr_block" {
   type        = string
   description = "VPC CIDR needed to create a new VPC in each region"
 }
+
+variable "primary_region" {
+  type        = bool
+  description = "Checks Wether the region is the primary or the secondary one"
+}
