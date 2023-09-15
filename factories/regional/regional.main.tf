@@ -47,6 +47,7 @@ module "app-ecs" {
   }
   tags               = var.tags
   domain_name        = var.domain_name                # Public domain name needed for ACM & Public Exposure
+  domain_name_prefix = var.domain_name_prefix         # domain prefix for public app exposure : webapp.petereskandar.eu
   ecr_repository_url = module.app-ecr.repository_url  # ECR repo url to pull the sample webapp Image
   app-vpc-id         = module.app-vpc.app-vpc-id      # VPC ID
   default-sg-id      = module.app-vpc.default-sg-id   # default SG ID

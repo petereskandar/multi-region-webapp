@@ -16,7 +16,7 @@ locals {
 // app-regional Module
 // for deploying regional resources
 module "app_primary_region" {
-  source = "./factories/app-regional"
+  source = "./factories/regional"
   providers = {
     aws.dst = aws.primary-region
   }
@@ -31,7 +31,7 @@ module "app_primary_region" {
 ##############################
 
 /*module "app_secondary_region" {
-  source = "./factories/app-regional"
+  source = "./factories/regional"
   providers = {
     aws.dst = aws.secondary-region
   }
@@ -44,6 +44,6 @@ module "app_primary_region" {
 
 
 /*module "app_global" {
-  source = "./factories/app-global"
+  source = "./factories/global"
   // NOT IN USE AT THE MOMENT
 }*/
