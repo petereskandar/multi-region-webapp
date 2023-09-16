@@ -10,7 +10,7 @@ The below Diagram describes the App Infrastructure :
 
 ![plot](./img/infra.jpg)
 
-## **What to excpect by applying this terraform project ?**
+## What to excpect by applying this terraform project ?
 This project supports creating resources through individual sub-modules, it's mainly based on two main modules **global** and **regional** which you can find under the **factories** directory.
 
 The **global** module is used to create non-region related resources "for example IAM Roles" while the **regional** module is used to create region related resources "for example an ALB or an ECS Cluster".
@@ -58,7 +58,7 @@ In the [main.tf](main.tf) you can notice that the **regional module** is importe
 ## PRIMARY REGION
 ##############################
 
-// app-regional Module
+// regional Module
 // for deploying regional resources
 module "app_primary_region" {
   source = "./factories/regional"
@@ -115,9 +115,34 @@ resource "aws_route53_record" "dns_record" {
 }
 ```
 
-
 <!-- blank line -->
 ## Usage 
+
+To be able to use this project, you will need the following : 
+- A **Public Domain Name** registered or imported in **Route53**
+- **Terraform Providers** referring to two different AWS Regions in your AWS Account with the necesary permissions to create all the resources listed [here](#what-to-excpect-by-applying-this-terraform-project) 
+
+  ### Setup Providers :
+    Under the main directory, you need to create a new ***provider.tf*** file with two different providers referring to two different AWS Regions as shown below : 
+  ```
+    provider "aws" {
+    alias      = "primary-region"
+    region     = "ADD YOUR PRIMARY REGION HERE"
+    
+    skip_metadata_api_check     = false
+    skip_region_validation      = false
+    skip_credentials_validation = false
+    }
+
+    provider "aws" {
+    alias      = "secondary-region"
+    region     = "ADD YOUR PRIMARY REGION HERE"
+
+    skip_metadata_api_check     = false
+    skip_region_validation      = false
+    skip_credentials_validation = false
+    }
+  ``` 
 
 <!-- blank line -->
 ## Inputs 
