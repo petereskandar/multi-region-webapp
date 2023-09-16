@@ -4,7 +4,3 @@ variable "tags" {
   description = ""
 }
 
-variable "s3_bucket" {
-  type    = map(string)
-  default = {}
-}
