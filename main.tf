@@ -31,7 +31,7 @@ module "app_primary_region" {
 ## FAILOVER REGION
 ##############################
 
-/*module "app_secondary_region" {
+module "app_secondary_region" {
   source = "./factories/regional"
   providers = {
     aws.dst = aws.secondary-region
@@ -41,7 +41,7 @@ module "app_primary_region" {
   vpc_cidr_block     = local.metadata.vpc_cidr
   primary_region     = false
   tags               = local.tags
-}*/
+}
 
 
 

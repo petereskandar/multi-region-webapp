@@ -2,4 +2,8 @@ FROM nginx:latest
 COPY ./index.html /usr/share/nginx/html/index.html
 WORKDIR /usr/share/nginx/html
 EXPOSE 80
+ARG REGION
+ENV REGION=${REGION}
+RUN echo "Deployed on Region : ${REGION}" >> /usr/share/nginx/html/index.html
+RUN echo "<br>" >> /usr/share/nginx/html/index.html
 RUN date +"%A, %b %d, %Y %H:%M:%S" >> /usr/share/nginx/html/index.html
