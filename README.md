@@ -10,7 +10,7 @@ The below Diagram describes the App Infrastructure :
 
 ![plot](./img/infra.jpg)
 
-## **What to excpect by applying this terraform project :**
+## **What to excpect by applying this terraform project ?**
 This project supports creating resources through individual sub-modules, it's mainly based on two main modules **global** and **regional** which you can find under the **factories** directory.
 
 The **global** module is used to create non-region related resources "for example IAM Roles" while the **regional** module is used to create region related resources "for example an ALB or an ECS Cluster".
@@ -45,8 +45,82 @@ here is a list of the resources that will be created by each sub-module :
     - **Route53 Health Check** target the **FQDN** of the **Application Load Balancer** on port **443**
     - **Route53 Records** with **Failover** Routing Policy
     - **Failover Record Type** will be decided based on a flag named ***primary_region*** if true a ***Primary*** record will be created, otherwise a ***Secondary** one will be created
+
 <!-- blank line -->
--  **Inputs :**
+## How Resources are getting created in two different regions without the need to replicate the Terraform Code ?
+
+As mentioned above, the main terraform module responsabile for creating a single APP Stack is the **regional module** with its three sub-modules ***vpc***, ***ecr*** and ***ecs***
+
+In the [main.tf](main.tf) you can notice that the **regional module** is imported twice, each time with a different **Terraform AWS Proivder**.
+
+```
+##############################
+## PRIMARY REGION
+##############################
+
+// app-regional Module
+// for deploying regional resources
+module "app_primary_region" {
+  source = "./factories/regional"
+  providers = {
+    aws.dst = aws.primary-region
+  }
+  domain_name        = local.metadata.domain_name
+  domain_name_prefix = local.metadata.domain_name_prefix
+  vpc_cidr_block     = local.metadata.vpc_cidr
+  primary_region     = true
+  tags               = local.tags
+}
+
+##############################
+## FAILOVER REGION
+##############################
+
+module "app_secondary_region" {
+  source = "./factories/regional"
+  providers = {
+    aws.dst = aws.secondary-region
+  }
+  domain_name        = local.metadata.domain_name
+  domain_name_prefix = local.metadata.domain_name_prefix
+  vpc_cidr_block     = local.metadata.vpc_cidr
+  primary_region     = false
+  tags               = local.tags
+}
+```
+
+Each **AWS Terraform Provider** should refer to an AWS Region in your AWS Account.
+
+Another difference between the **Primary Region** and the **Secondary Region** is the ***primary_region*** flag value, which will be required to create **Route53 DNS Records** as shown below :
+
+```
+resource "aws_route53_record" "dns_record" {
+  zone_id = data.aws_route53_zone.public-zone.zone_id
+  name    = lower("${var.domain_name_prefix}.${var.domain_name}")
+  type    = "A"
+
+  alias {
+    name                   = module.alb.lb_dns_name
+    zone_id                = module.alb.lb_zone_id
+    evaluate_target_health = true
+  }
+
+  set_identifier = var.primary_region ? "primary" : "secondary"
+  failover_routing_policy {
+    type = var.primary_region ? "PRIMARY" : "SECONDARY"
+  }
+
+  health_check_id = aws_route53_health_check.failover_healt_check.id
+
+}
+```
+
+
+<!-- blank line -->
+## Usage 
+
+<!-- blank line -->
+## Inputs 
 
 The following inputs should be added to the **metadata.yml** 
 
