@@ -1,4 +1,4 @@
-# Building a secure, multi-regional & highly available ECS infrastructure using Terraform
+# Building a Secure, Mlti-Regional & Highly Available Web Application Infrastructure using Terraform
 
 This Terraform Project is used to Setup a Multi-Region Web APP deployed using AWS ECS Fargate and exposed publicly using an Application Load Balancer.
 
