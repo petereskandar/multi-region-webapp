@@ -19,6 +19,7 @@ Under the **regional module** you can find three other sub-modules ***vpc***, **
 
 here is a list of the resources that will be created by each sub-module :
 
+<!-- blank line -->
 - **VPC Sub-Module** :
     - A **Public Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr**
     - A **Private Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr**
@@ -27,9 +28,23 @@ here is a list of the resources that will be created by each sub-module :
     - a **Public Route Table** for Public Subnets
     - a **Private Route Table** for Private Subnets
     - **S3 & DynamoDB** Gateway Endpoints with their relative routes in both **Public & Private** Route Tables
+<!-- blank line -->    
 - **ECR Sub-Module** :
+    - A ** Private ECR Repository** named ***web-app-repo***
+    - A Repo **Lifecycle rule** to keep the last tagged 30 images
+    - **Docker** Build, Tag and Push for a simple html page that you can find [here](factories/regional/ecr/webapp)
+<!-- blank line -->    
 - **ECS Sub-Module** :     
-
+    - An **ECS Fargate Cluster** named ***APP-ECS-FARGATE***
+    - A **Task Definition** using the **ECR Image** pushed by the **ECR Sub-Module**
+    - Task Definition Role & Execution Role
+    - An **ECS Service** using the created **Task Definition** and with **Autoscaling** enabled "Min Tasks=1 and Max Tasks=10"
+    - An **Internet Facing ALB** for Service Public Exposure
+    - A **Wild Card ACM Certificate** based on the provided **Public Domain Name** for **TLS Termination**
+    - **DNS Validation** for the created Certificate
+    - **Route53 Health Check** target the **FQDN** of the **Application Load Balancer** on port **443**
+    - **Route53 Records** with **Failover** Routing Policy
+    - **Failover Record Type** will be decided based on a flag named ***primary_region*** if true a ***Primary*** record will be created, otherwise a ***Secondary** one will be created
 <!-- blank line -->
 -  **Inputs :**
 
