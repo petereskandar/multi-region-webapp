@@ -21,8 +21,8 @@ here is a list of the resources that will be created by each sub-module :
 
 <!-- blank line -->
 - **VPC Sub-Module** :
-    - A **Public Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr**
-    - A **Private Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr**
+    - A **Public Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr** [See Inputs](#inputs)
+    - A **Private Subnet** for each AZ in the **Primary** and the **Secondary** Regions based on the provided **VPC Cidr** [See Inputs](#inputs)
     - An **Internet Gateway**
     - a **NAT Gateway** using one of the Public Subnets
     - a **Public Route Table** for Public Subnets
@@ -40,7 +40,7 @@ here is a list of the resources that will be created by each sub-module :
     - Task Definition Role & Execution Role
     - An **ECS Service** using the created **Task Definition** and with **Autoscaling** enabled "Min Tasks=1 and Max Tasks=10"
     - An **Internet Facing ALB** for Service Public Exposure
-    - A **Wild Card ACM Certificate** based on the provided **Public Domain Name** for **TLS Termination**
+    - A **Wild Card ACM Certificate** based on the provided **Public Domain Name** for **TLS Termination** [See Inputs](#inputs)
     - **DNS Validation** for the created Certificate
     - **Route53 Health Check** target the **FQDN** of the **Application Load Balancer** on port **443**
     - **Route53 Records** with **Failover** Routing Policy
@@ -147,12 +147,12 @@ To be able to use this project, you will need the following :
 <!-- blank line -->
 ## Inputs 
 
-The following inputs should be added to the **metadata.yml** 
+The following inputs should be added to the [metadata.yml](metadata.yml)
 
-| **Input** 	| **Mandatory** 	|            **Default Value**            	|
-|:---------------:	|------------	|:-----------------------------------:	|
-|       domain_name      	| TRUE 	| Null 	|
-|       domain_name_suffix      	| FALSE 	| webapp 	|
-|       vpc_cidr      	| FALSE 	| 10.0.0.0/16 	|
+|      **Input**     	| **Mandatory** 	| **Example**      	|                                                 **Description**                                                	|
+|:------------------:	|:-------------:	|------------------	|:--------------------------------------------------------------------------------------------------------------:	|
+| domain_name        	| TRUE          	| petereskandar.eu 	| The Public Domain Name needed for the App Public Exposure and ACM Certificate Validation                       	|
+| domain_name_suffix 	| TRUE          	| webapp           	| Needed for DNS records creation to expose the App publicly,for example : webapp.petereskandar.eu               	|
+| vpc_cidr           	| TRUE          	| 10.0.0.0/16      	| The VPC Cidr is required to setup the Networking part in each region "VPC, Public Subnets and Private Subnets" 	|
 
 
