@@ -8,7 +8,7 @@ The **DR Strategy** is based on **Route53 Health Checks** which will swtich to t
 
 The below Diagram describes the App Infrastructure :
 
-![plot](./img/infra.jpg)
+![plot](./img/infra-v2.jpg)
 
 ## What to excpect by applying this terraform project ?
 This project supports creating resources through individual sub-modules, it's mainly based on two main modules **global** and **regional** which you can find under the **factories** directory.
