@@ -1,4 +1,4 @@
-# Multi-Region Web App to handle Disaster Recovery
+# Building a secure, multi-regional & highly available ECS infrastructure using Terraform
 
 This Terraform Project is used to Setup a Multi-Region Web APP deployed using AWS ECS Fargate and exposed publicly using an Application Load Balancer.
 
