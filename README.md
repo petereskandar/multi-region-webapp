@@ -162,5 +162,5 @@ The following inputs should be added to the [metadata.yml](metadata.yml)
 - **Resource Naming :** 
     - At the moment most of the created resources has fixed names and need to be externalized using **T*erraform Variables***
 - **Web Application & Infrastructure :** 
-    - This project doesn't create any ***DynamoBB Table*** or ***S3 Buckets***, they are there in the diagram for demonstration purposes 
+    - This project doesn't create any ***DynamoDB Tabls*** or ***S3 Buckets***, they are there in the diagram for demonstration purposes 
     - The Deployed Application on both regions is a simple ***index.html*** with a label that indicates the region of deployment "for Failover testing purposes" and I'm working on introducing a more complex use-case that involves ***DynamoDB Global Tables*** or ***Multiple S3 Buckets*** in two different AWS Regions with **Cognito** for Auth/Authz.
