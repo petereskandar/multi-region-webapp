@@ -164,3 +164,9 @@ The following inputs should be added to the [metadata.yml](metadata.yml)
 - **Web Application & Infrastructure :** 
     - This project doesn't create any ***DynamoDB Tabls*** or ***S3 Buckets***, they are there in the diagram for demonstration purposes 
     - The Deployed Application on both regions is a simple ***index.html*** with a label that indicates the region of deployment "for Failover testing purposes" and I'm working on introducing a more complex use-case that involves ***DynamoDB Global Tables*** or ***Multiple S3 Buckets*** in two different AWS Regions with **Cognito** for Auth/Authz.
+
+
+
+<!-- blank line --> 
+****
+**Any suggestions are much appreciated**
