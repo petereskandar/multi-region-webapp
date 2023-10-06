@@ -10,7 +10,7 @@ The below Diagram describes the App Infrastructure :
 
 ![plot](./img/infra-v2.jpg)
 
-## What to excpect by applying this terraform project ?
+## What to excpect by deploying this terraform project ?
 This project supports creating resources through individual sub-modules, it's mainly based on two main modules **global** and **regional** which you can find under the **factories** directory.
 
 The **global** module is used to create non-region related resources "for example IAM Roles" while the **regional** module is used to create region related resources "for example an ALB or an ECS Cluster".
