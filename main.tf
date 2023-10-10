@@ -53,7 +53,7 @@ module "app_secondary_region" {
 resource "aws_instance" "example" {
   provider = aws.primary-region
   ami           = "ami-04add7ad5deef1ffd"
-  instance_type = "t3.medium"
+  instance_type = "t3.large"
   subnet_id     = "subnet-089218a7c1feb905a"
 
   tags = {
