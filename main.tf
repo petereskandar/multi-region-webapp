@@ -42,21 +42,3 @@ module "app_secondary_region" {
   primary_region     = false
   tags               = local.tags
 }
-
-
-
-
-##############################
-## Demo EC2 Instance
-##############################
-
-resource "aws_instance" "example" {
-  provider = aws.primary-region
-  ami           = "ami-04add7ad5deef1ffd"
-  instance_type = "t3.xlarge"
-  subnet_id     = "subnet-089218a7c1feb905a"
-
-  tags = {
-    Name = "ec2-example"
-  }
-}
